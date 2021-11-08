@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package message;
+
+import "google/protobuf/any.proto";
+
+enum MessageType {
+    UNKNOWN = 0;
+
+    VOTE_REQUEST = 1;
+    VOTE_RESPONSE = 2;
+
+    APPEND_ENTRIES_REQUEST = 3;
+    APPEND_ENTRIES_RESPONSE = 4;
+
+    COMMAND_ENTRY_REQUEST = 5;
+    COMMAND_ENTRY_RESPONSE = 6;
+
+    SEARCH_LEADER_REQUEST = 7;
+    SEARCH_LEADER_RESPONSE = 8;
+
+    CRASH_REQUEST = 9;
+    START_REQUEST = 10;
+
+    ELECTION_TIMEOUT_REQUEST = 11;
+    SPEED_REQUEST = 12;
+
+    EXIT = 13;
+}
+
+message Message {
+    uint32 source_id = 1;
+    uint32 dest_id = 2;
+    MessageType type = 3;
+    google.protobuf.Any payload = 4;
+    // Only relevant for server messages
+    uint32 term = 5;
+}

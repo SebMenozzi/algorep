@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package speed;
+
+enum Speed {
+    UNKNOWN = 0;
+    
+    LOW = 1;
+    MEDIUM = 2;
+    HIGH = 3;
+    NONE = 4; // 0 delay basically
+}
+
+message SpeedRequest {
+    Speed speed = 1;
+}

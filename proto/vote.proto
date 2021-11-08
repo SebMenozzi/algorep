@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package vote;
+
+message VoteRequest {
+    // Candidate requesting vote
+    uint32 candidate_id = 1;
+}
+
+message VoteResponse {
+    // True means candidate received vote
+    bool vote_granted = 1;
+}

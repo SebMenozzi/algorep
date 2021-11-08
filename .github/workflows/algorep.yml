@@ -1,0 +1,38 @@
+name: algorep
+
+on: [push]
+
+env:
+  BUILD_TARGET: RELEASE
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Update Packages
+      shell: bash
+      run: sudo apt update -y
+
+    - name: Install Packages
+      shell: bash
+      run: sudo apt install build-essential cmake libopenmpi-dev libboost-all-dev protobuf-compiler libprotobuf-dev -y
+
+    - name: Configure OpenMPI
+      shell: bash
+      run: export OMPI_MCA_btl=^openib
+
+    - name: Create Build Environment
+      run: cmake -E make_directory build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: build
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TARGET
+
+    - name: Build
+      working-directory: build
+      shell: bash
+      run: cmake --build . --config $BUILD_TARGET

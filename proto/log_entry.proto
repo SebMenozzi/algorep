@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package log_entry;
+
+message LogEntry {
+    uint32 client_id = 1;
+    uint32 leader_id = 2;
+    uint32 index = 3;
+    string command = 4;
+    uint32 term = 5;
+}

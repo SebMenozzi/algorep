@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package command_entry;
+
+message CommandEntryRequest {
+    string command = 1;
+}
+
+message CommandEntryResponse {
+    bool command_committed = 1;
+}

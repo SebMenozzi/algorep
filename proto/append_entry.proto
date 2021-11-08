@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package append_entry;
+
+import "google/protobuf/wrappers.proto";
+import "proto/log_entry.proto";
+
+message PrevLogMetadata {
+    // Index of log entry immediately preceding new ones
+    uint32 prev_log_index = 1;
+    // Term of "prev log index" entry
+    uint32 prev_log_term = 2;
+}
+
+message AppendEntriesRequest {
+    // Leader's term
+    uint32 term = 1;
+    // Leader's ID => so follower can redirect clients to leader
+    uint32 leader_id = 2;
+
+    // Can be null
+    PrevLogMetadata prev_log_metadata = 3;
+
+    repeated log_entry.LogEntry log_entries = 5;
+    // Leader’s commit index, can be null
+    google.protobuf.UInt32Value leader_commit_index = 6;
+}
+
+message AppendEntriesResponse {
+    bool success = 1;
+    uint32 nb_log_entries = 2;
+}

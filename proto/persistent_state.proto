@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package persistent_state;
+
+import "google/protobuf/wrappers.proto";
+import "proto/log_entry.proto";
+
+message PersistentState {
+    uint32 current_term = 1;
+    google.protobuf.UInt32Value voted_for = 2;
+    repeated log_entry.LogEntry log_entries = 3;
+}
